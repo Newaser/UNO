@@ -1,26 +1,33 @@
-from enums import *
+import random
+from .enums import *
 
 
 class Card:
-    def __init__(self, suit, card_type):
+    def __init__(self, card_type, suit=None):
         self.suit = suit
         self.type = card_type
 
     def get_score(self):
-        return self.type.value
+        return int(self.type.value)
+
+    def __repr__(self):
+        suit_repr = self.suit.name + ' ' if self.suit is not None else ''
+        name_repr = str(self.type.value) if 0 <= self.type.value <= 9 else self.type.name
+        return suit_repr + name_repr
 
 
-def generate_std_deck():
+def generate_std_deck(shuffle=False):
     deck = []
     for suit in Suit:
         for card_type in CardType:
             if card_type.value == 0:
-                deck.append(Card(suit, card_type))
-            elif 1 <= card_type.value <= 9 or card_type.value == FUNCTION_SCORE:
+                deck.append(Card(card_type, suit))
+            elif 1 <= card_type.value <= 9 or int(card_type.value) == FUNCTION_SCORE:
                 for _ in range(2):
-                    deck.append(Card(suit, card_type))
-            elif card_type.value == SPECIAL_SCORE:
-                for _ in range(4):
-                    deck.append(Card(suit, card_type))
+                    deck.append(Card(card_type, suit))
+            elif int(card_type.value) == SPECIAL_SCORE:
+                deck.append(Card(card_type))
 
+    if shuffle:
+        random.shuffle(deck)
     return deck
