@@ -1,0 +1,2 @@
+class OutOfCardsError(RuntimeError):
+    pass

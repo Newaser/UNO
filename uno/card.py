@@ -11,7 +11,12 @@ class Card:
         return int(self.type.value)
 
     def __repr__(self):
-        suit_repr = self.suit.name + ' ' if self.suit is not None else ''
+        suit_repr = self.suit.name + ' ' if self.suit is not None and int(self.type.value) != SPECIAL_SCORE else ''
+        name_repr = str(self.type.value) if 0 <= self.type.value <= 9 else self.type.name
+        return suit_repr + name_repr
+
+    def get_full_repr(self):
+        suit_repr = self.suit.name + ' ' if self.suit is not None else 'NOT COLORED '
         name_repr = str(self.type.value) if 0 <= self.type.value <= 9 else self.type.name
         return suit_repr + name_repr
 

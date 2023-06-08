@@ -1,3 +1,6 @@
+import random
+
+
 def ask(options, prompt='Please choose one from above: ', reask_prompt='Error choice. Please choose again: '):
     """Ask the player to choose one option from a series of options
 
@@ -8,7 +11,7 @@ def ask(options, prompt='Please choose one from above: ', reask_prompt='Error ch
     """
     choice = None
     for i, option in enumerate(options):
-        print(str(i + 1) + '. ' + option)
+        print(str(i + 1) + '. ' + str(option))
 
     while True:
         reask = False
@@ -26,3 +29,11 @@ def ask(options, prompt='Please choose one from above: ', reask_prompt='Error ch
         prompt = reask_prompt
 
     return choice - 1
+
+
+def generate_rand_number_seq(seq_length):
+    seq = ''
+    for _ in range(seq_length):
+        seq += str(random.randrange(10))
+
+    return seq

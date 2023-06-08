@@ -32,3 +32,8 @@ class CardType(Enum):
     # SPECIAL type
     WILD = SPECIAL_SCORE
     WILD_DRAW_FOUR = SPECIAL_SCORE + 0.1
+
+
+class Direction(Enum):
+    CLOCKWISE = -1
+    COUNTERCLOCKWISE = 1
