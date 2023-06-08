@@ -55,10 +55,11 @@ class Game:
 
     def play(self, player, hand):
         self.hands[player.pid].remove(hand)
-        self.deadwood.append(hand)
 
         # extra effects for function/special cards
         do_effect(self, hand)
+
+        self.deadwood.append(hand)
 
     def get_last_card(self):
         try:
