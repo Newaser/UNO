@@ -94,9 +94,26 @@ class Game:
             '\n'
         )
 
-    def end_turn(self):
+    def next_turn(self):
         player_num = len(self.players)
         self.cur_player = (player_num + self.cur_player + self.cur_direction.value) % player_num
+
+    def check_end(self):
+        if len(self.get_cur_hands()) == 0:
+            print(self.players[self.cur_player].name + ' wins the game!!!\n')
+
+            # print scoreboard
+            print('--Scoreboard--\nPlayer\tScore')
+
+            id_name_dict = {p.pid: p.name for p in self.players}
+            for pid, hands in self.hands.items():
+                name = id_name_dict[pid]
+                score = -sum([int(hand.type.value) for hand in hands])
+                print(name + '\t' + str(score))
+
+            return True
+        else:
+            return False
 
     def run(self):
         self.cur_player = self.dealer
@@ -122,4 +139,8 @@ class Game:
                     continue
                 else:
                     self.play(self.players[self.cur_player], card)
-            self.end_turn()
+
+            if self.check_end():
+                break
+
+            self.next_turn()

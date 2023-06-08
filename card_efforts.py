@@ -5,7 +5,7 @@ __all__ = ['do_effect']
 
 
 def skip(game, _):
-    game.end_turn()
+    game.next_turn()
     input('Player ' + game.players[game.cur_player].name + "'s turn has been skipped.")
 
 
@@ -18,7 +18,7 @@ def reverse(game, _):
 
 
 def draw_two(game, _):
-    game.end_turn()
+    game.next_turn()
 
     next_player = game.players[game.cur_player]
     game.draw(next_player, 2)
@@ -33,7 +33,7 @@ def wild(_, wild_card):
 def wild_draw_four(game, wd4):
     wild(game, wd4)
 
-    game.end_turn()
+    game.next_turn()
     next_player = game.players[game.cur_player]
     game.draw(next_player, 4)
     input('Player ' + next_player.name + " drew 4 cards and skipped its turn.")
