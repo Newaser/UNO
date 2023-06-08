@@ -1,10 +1,10 @@
 def ask(options, prompt='Please choose one from above: ', reask_prompt='Error choice. Please choose again: '):
-    """
+    """Ask the player to choose one option from a series of options
 
-    :param options:
-    :param prompt:
-    :param reask_prompt:
-    :return:
+    :param options:The options to be chosen
+    :param prompt:The prompt to be shown when asking occurs
+    :param reask_prompt:The prompt to be shown when re-asking occurs
+    :return:The index of the chosen option
     """
     choice = None
     for i, option in enumerate(options):
