@@ -1,6 +1,7 @@
 from uno.card import *
 from errors import *
 from functions import *
+from card_efforts import *
 import os
 
 
@@ -55,7 +56,9 @@ class Game:
     def play(self, player, hand):
         self.hands[player.pid].remove(hand)
         self.deadwood.append(hand)
-        # TODO: add extra behaviours for function/special cards
+
+        # extra effects for function/special cards
+        do_effect(self, hand)
 
     def get_last_card(self):
         try:
