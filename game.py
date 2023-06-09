@@ -26,6 +26,22 @@ class Game:
         self.cur_player = None
         self.cur_direction = None
 
+    def reset(self):
+        # reset areas
+        self.deck = generate_std_deck(shuffle=True)
+        self.deadwood = []
+        self.hands = {player.pid: [] for player in self.players}
+
+        # give out starting cards
+        for _ in range(self.STARTING_HANDS):
+            for player in self.players:
+                self.draw(player)
+
+        # reset game states
+        self.dealer = random.randrange(len(self.players))
+        self.cur_player = self.dealer
+        self.cur_direction = self.DEFAULT_DIRECTION
+
     def shuffle(self):
         random.shuffle(self.deadwood)
         self.deck += self.deadwood
@@ -70,13 +86,6 @@ class Game:
     def get_cur_hands(self):
         return self.hands[self.players[self.cur_player].pid]
 
-    def init(self):
-        for _ in range(self.STARTING_HANDS):
-            for player in self.players:
-                self.draw(player)
-
-        self.dealer = random.randrange(len(self.players))
-
     def print_prompt(self):
         print('>>>' + self.players[self.cur_player].name + "'s Turn<<<\n")
         print('--Player List(Counterclockwise)--\n Name\tHands')
@@ -117,9 +126,13 @@ class Game:
             return False
 
     def run(self):
-        self.cur_player = self.dealer
-        self.cur_direction = self.DEFAULT_DIRECTION
+        while True:
+            self.reset()
+            self.take_turns()
+            if bool(ask(['Yes', 'No'], 'Game Ended. Do you wanna start another game? ')):
+                break
 
+    def take_turns(self):
         while True:
             os.system('cls')
             self.print_prompt()

@@ -9,5 +9,4 @@ if __name__ == '__main__':
         players.append(Player(generate_rand_number_seq(10), name))
 
     game = Game(players)
-    game.init()
     game.run()
